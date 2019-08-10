@@ -1,23 +1,11 @@
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
-export function Post() {
+
+export function Post(props) {
     return (
         <View style={styles.container}>
-
-            <View>
-                <Image
-                    style={styles.profilePic}
-                    source={{uri: 'https://amp.businessinsider.com/images/5824aa9046e27a1c008b5eec-750-563.jpg' }} />
-            </View>
-
-            <View>
-                <Text style={styles.username}>Leslie Knope</Text>
-                <Text style={styles.font}>12/11/19</Text>
-            </View>
-
-            <Text style={styles.font}>Parks and Recreation</Text>
-
+            <Text style={styles.font}>{props.postInfo.title}</Text>
         </View>
     )
 }
@@ -28,15 +16,15 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         borderBottomColor: '#707070',
-        borderBottomWidth: 3
+        borderBottomWidth: 1
     },
     username: {
         fontSize: 20,
         fontFamily: 'Courier'
     },
     profilePic: {
-        width: 50,
-        height: 50,
+        width: 100,
+        height: 100,
         borderRadius: 25
     },
     font: {

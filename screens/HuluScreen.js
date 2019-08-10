@@ -1,18 +1,43 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native'
+import React, { Component } from 'react';
+import {View, Text, StyleSheet, Platform, ScrollView} from 'react-native'
 import {Post} from '../components/Post'
-import {Header} from '../components/Header'
+import {Header} from '../components/Header';
+import {FirebaseWrapper} from '../firebase/firebase'
 
 
-export default function HuluScreen(){
+export default class HuluScreen extends Component{
+  constructor(){
+    super();
+    this.state = {
+      posts: []
+    }
+  }
+
+  async componentDidMount(){
+    await FirebaseWrapper.GetInstance().SetupCollectionListener('posts', (container) => {
+      let post = container.filter(posting => {
+        if (posting.platform === 'Hulu'){
+          return posting;
+        }
+      });
+      this.setState({ posts: post });
+    })
+  }
+
+  render(){
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Hulu</Text>
-            <Post />
-            <Header />
-        </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Hulu</Text>
+        <ScrollView style={styles.container}>
+          {
+            this.state.posts && this.state.posts.map(post => <Post postInfo={post} key={post.id} />)
+          }
+        </ScrollView>
+        <Header platform="Hulu" />
+      </View>
     )
+  }
 }
 
 

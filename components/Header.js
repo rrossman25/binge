@@ -1,32 +1,28 @@
-import React, {Component} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {CreatePost} from './CreatePost';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { CreatePost } from './CreatePost';
 
 export class Header extends Component {
     constructor(props){
         super(props);
         this.state = {
             isModalVisible: false,
-            text: ''
         }
     }
 
     closeModal(){
-        this.setState({isModalVisible: !this.state.isModalVisible})
+        this.setState({isModalVisible: !this.state.isModalVisible});
     }
 
     render(){
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>
-                    {this.props.text}
-                </Text>
 
                 <TouchableOpacity onPress={() => this.setState({isModalVisible: true})} style={styles.buttonContainer}>
                     <Text style={styles.button}>add a title + </Text>
                 </TouchableOpacity>
 
-                <CreatePost isModalVisible={this.state.isModalVisible} closeModal={this.closeModal} />
+                <CreatePost isModalVisible={this.state.isModalVisible} closeModal={() => this.closeModal()} platform={this.props.platform} />
 
             </View>
         )
@@ -48,10 +44,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     button: {
-        textAlign: 'center',
+        alignSelf: 'flex-end',
         fontFamily: 'Courier',
     },
     buttonContainer: {
-        paddingRight: 5
+        paddingRight: 5,
+        justifyContent: 'flex-end'
     }
 })

@@ -7,7 +7,6 @@ import HomeScreen from '../screens/HomeScreen';
 import NetflixScreen from '../screens/NetflixScreen'
 import HuluScreen from '../screens/HuluScreen';
 import AmazonScreen from '../screens/AmazonScreen';
-// import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
@@ -29,8 +28,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-home`
+          : 'md-home'
       }
     />
   ),
@@ -52,8 +51,8 @@ NetflixStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        ? `ios-film`
+        : 'md-film'
       }
     />
   ),
@@ -75,8 +74,8 @@ HuluStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        ? `ios-tv`
+        : 'md-tv'
       }
     />
   ),
@@ -99,8 +98,8 @@ AmazonStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        ? `ios-cart`
+        : 'md-cart'
       }
     />
   ),
@@ -108,21 +107,6 @@ AmazonStack.navigationOptions = {
 
 AmazonStack.path = '';
 
-// const LinksStack = createStackNavigator(
-//   {
-//     Links: LinksScreen,
-//   },
-//   config
-// );
-
-// LinksStack.navigationOptions = {
-//   tabBarLabel: 'Links',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
-//   ),
-// };
-
-// LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -145,7 +129,6 @@ const tabNavigator = createBottomTabNavigator({
   NetflixStack,
   HuluStack,
   AmazonStack,
-  // LinksStack,
   SettingsStack,
 });
 

@@ -1,26 +1,21 @@
 import * as WebBrowser from 'expo-web-browser';
-import React, {Component} from 'react';
+import React from 'react';
 import {
   Image,
   Platform,
-  // ScrollView,
   StyleSheet,
   Text,
-  // TouchableOpacity,
   View,
-  // Button,
 } from 'react-native';
 
-// import { MonoText } from '../components/StyledText';
 
-import {Post} from '../components/Post'
-import {Header} from '../components/Header'
+import {Search} from '../components/Search'
 
-// import { TextInput } from 'react-native-gesture-handler';
 
 export default function HomeScreen(){
   return (
     <View style={styles.container}>
+      <Search />
       <Text style={styles.title}>binge.</Text>
       <Image style={styles.image} source={require('./../assets/images/color-tv.jpeg')} />
       <Text style ={styles.description}>crowdsourcing for television addicts</Text>

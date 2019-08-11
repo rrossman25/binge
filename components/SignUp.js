@@ -8,24 +8,12 @@ import { TextInput, Text, Button, Alert, StyleSheet, Switch } from 'react-native
 import {FirebaseWrapper} from '../firebase/firebase'
 
 
-export class SignIn extends Component {
+export class SignUp extends Component {
 
-    async logInUser(values){
+    async createUser(values){
         try {
-            await FirebaseWrapper.GetInstance().SetupCollectionListener('users', (container) => {
-                let user = container.filter(username => {
-                  if (username.email === values.email && username.password === values.password){
-                    return username;
-                  }
-                });
-                if (user.length !== 0){
-                    console.log(user[0])
-                }
-                else {
-                    console.log('nope')
-                }
-            })
-        } catch (error) {console.log('something went wrong signing in', error)}
+            await FirebaseWrapper.GetInstance().CreateNewDocument('users', { email: values.email, password: values.password})
+        } catch (error) {console.log('something went wrong signing up', error)}
     }
 
 
@@ -44,6 +32,13 @@ export class SignIn extends Component {
                     .min(8, 'too short')
                     .max(12, 'too long')
                     .required('please enter password'),
+                confirmPassword: yup
+                    .string()
+                    .required('please confirm password')
+                    .test('confirm-password', 'passwords do not match', function(val){return this.parent.password === val}),
+                agree: yup
+                    .boolean()
+                    .test('is-true', 'must agree to terms to continue', val => val === true)
                 })}
             >
             {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit, setFieldValue }) => (
@@ -76,11 +71,33 @@ export class SignIn extends Component {
                     {touched.password && errors.password &&
                         <Text style={styles.errors}>{errors.password}</Text>
                     }
+                    <Text style={styles.inputs}>
+                        confirm password
+                    </Text>
+                    <TextInput
+                        style={styles.inputs}
+                        value={values.confirmPassword}
+                        onChangeText={handleChange('confirmPassword')}
+                        placeholder="expelliarmus"
+                        onBlur={() => setFieldTouched('confirmPassword')}
+                        secureTextEntry={true}
+                    />
+                    {touched.confirmPassword && errors.confirmPassword &&
+                        <Text style={styles.errors}>{errors.confirmPassword}</Text>
+                    }
+                    <Text style={styles.inputs}>agree to terms</Text>
+                    <Switch
+                        value={values.agree}
+                        onValueChange={value => {setFieldValue('agree', value);}}
+                    />
+                    <Text style={styles.errors}>
+                        {touched.agree && errors.agree}
+                    </Text>
                     <Button
                         style={styles.inputs}
-                        title="sign in"
+                        title="sign up"
                         disabled={!isValid}
-                        onPress={() => this.logInUser(values)}
+                        onPress={() => this.createUser(values)}
                     />
                 </Fragment>
             )}

@@ -11,32 +11,73 @@ import {
 
 
 import {Search} from '../components/Search'
+import {FirebaseWrapper} from '../firebase/firebase'
 
 
 export class SearchScreen extends React.Component {
   constructor(){
     super();
     this.state = {
-      platforms: []
+      platforms: [],
+      searched: false
     }
   }
+
+
+  search = async (search) => {
+    try {
+        await FirebaseWrapper.GetInstance().SetupCollectionListener('posts', (container) => {
+              let docs = (container.filter(doc => {
+                if (doc.title === search){
+                    return doc;
+                }
+              }))
+              let platform = docs.map(doc => {
+                return doc.platform
+              })
+              this.setState({platforms: platform, searched: true});
+              console.log(this.state.platforms)
+        })
+    } catch (error) {console.log('something went wrong searching', error)}
+  }
+
+
   render(){
     const {navigate} = this.props.navigation;
-    console.log(this.state.platforms.length)
-    return (
-      <View style={styles.container}>
-          <Search platforms={this.state.platforms} />
-          {this.state.platforms.forEach(doc => {
-            return (
-              <Text>{doc.platform}</Text>
-            )
-          })}
+    if (this.state.platforms.length === 0 && this.state.searched === true) {
+      console.log('in if')
+      return (
+        <View style={styles.container}>
+          <Search searchfn={this.search} />
+          <View>
+            <Text>currently not available to stream</Text>
+          </View>
           <Button
               title="go home"
               onPress={() => navigate('Main')}
           />
-      </View>
-    );
+        </View>
+    )}
+    else {
+      console.log(this.state.platforms)
+      return (
+        <View style={styles.container}>
+          <Search searchfn={this.search} />
+          <View>
+            {/* <Text>Hello</Text> */}
+            {this.state.platforms.map((doc, index) => {
+              return (
+                <Text style={styles.title} key= {index}>{doc}</Text>
+              )})
+            }
+          </View>
+          <Button
+              title="go home"
+              onPress={() => navigate('Main')}
+          />
+        </View>
+      )
+    }
   }
 }
 

@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 
 import React, { Component, Fragment } from 'react';
-import { TextInput, Text, Button, Alert, StyleSheet, Switch } from 'react-native';
+import { TextInput, Text, Button, Alert, StyleSheet, Switch, View } from 'react-native';
 
 import {FirebaseWrapper} from '../firebase/firebase'
 
@@ -44,62 +44,64 @@ export class SignUp extends Component {
             >
             {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit, setFieldValue }) => (
                 <Fragment>
-                    <Text style={styles.inputs}>
-                        email
-                    </Text>
-                    <TextInput
-                        style={styles.inputs}
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={() => setFieldTouched('email')}
-                        placeholder="chosen1@wiznet.com"
-                        autoFocus
-                    />
-                    {touched.email && errors.email &&
-                        <Text style={styles.errors}>{errors.email}</Text>
-                    }
-                    <Text style={styles.inputs}>
-                        password
-                    </Text>
-                    <TextInput
-                        style={styles.inputs}
-                        value={values.password}
-                        onChangeText={handleChange('password')}
-                        placeholder="expelliarmus"
-                        onBlur={() => setFieldTouched('password')}
-                        secureTextEntry={true}
-                    />
-                    {touched.password && errors.password &&
-                        <Text style={styles.errors}>{errors.password}</Text>
-                    }
-                    <Text style={styles.inputs}>
-                        confirm password
-                    </Text>
-                    <TextInput
-                        style={styles.inputs}
-                        value={values.confirmPassword}
-                        onChangeText={handleChange('confirmPassword')}
-                        placeholder="expelliarmus"
-                        onBlur={() => setFieldTouched('confirmPassword')}
-                        secureTextEntry={true}
-                    />
-                    {touched.confirmPassword && errors.confirmPassword &&
-                        <Text style={styles.errors}>{errors.confirmPassword}</Text>
-                    }
-                    <Text style={styles.inputs}>agree to terms</Text>
-                    <Switch
-                        value={values.agree}
-                        onValueChange={value => {setFieldValue('agree', value);}}
-                    />
-                    <Text style={styles.errors}>
-                        {touched.agree && errors.agree}
-                    </Text>
-                    <Button
-                        style={styles.inputs}
-                        title="sign up"
-                        disabled={!isValid}
-                        onPress={() => this.createUser(values)}
-                    />
+                    <View style={styles.container}>
+                        <Text style={styles.inputs}>
+                            email
+                        </Text>
+                        <TextInput
+                            style={styles.inputs}
+                            value={values.email}
+                            onChangeText={handleChange('email')}
+                            onBlur={() => setFieldTouched('email')}
+                            placeholder="chosen1@wiznet.com"
+                            autoFocus
+                        />
+                        {touched.email && errors.email &&
+                            <Text style={styles.errors}>{errors.email}</Text>
+                        }
+                        <Text style={styles.inputs}>
+                            password
+                        </Text>
+                        <TextInput
+                            style={styles.inputs}
+                            value={values.password}
+                            onChangeText={handleChange('password')}
+                            placeholder="expelliarmus"
+                            onBlur={() => setFieldTouched('password')}
+                            secureTextEntry={true}
+                        />
+                        {touched.password && errors.password &&
+                            <Text style={styles.errors}>{errors.password}</Text>
+                        }
+                        <Text style={styles.inputs}>
+                            confirm password
+                        </Text>
+                        <TextInput
+                            style={styles.inputs}
+                            value={values.confirmPassword}
+                            onChangeText={handleChange('confirmPassword')}
+                            placeholder="expelliarmus"
+                            onBlur={() => setFieldTouched('confirmPassword')}
+                            secureTextEntry={true}
+                        />
+                        {touched.confirmPassword && errors.confirmPassword &&
+                            <Text style={styles.errors}>{errors.confirmPassword}</Text>
+                        }
+                        <Text style={styles.inputs}>agree to terms</Text>
+                        <Switch
+                            value={values.agree}
+                            onValueChange={value => {setFieldValue('agree', value);}}
+                        />
+                        <Text style={styles.errors}>
+                            {touched.agree && errors.agree}
+                        </Text>
+                        <Button
+                            style={styles.inputs}
+                            title="sign up"
+                            disabled={!isValid}
+                            onPress={() => this.createUser(values)}
+                        />
+                    </View>
                 </Fragment>
             )}
             </Formik>
@@ -113,6 +115,10 @@ styles = StyleSheet.create({
         fontSize: 10,
         color: 'black',
         fontFamily: 'Courier'
+    },
+    container: {
+        justifyContent: 'center',
+        alignContent: 'center'
     },
     errors: {
         fontSize: 10,

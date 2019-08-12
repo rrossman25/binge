@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 
 import React, { Component, Fragment } from 'react';
-import { TextInput, Text, Button, Alert, StyleSheet, Switch } from 'react-native';
+import { TextInput, Text, Button, Alert, StyleSheet, View } from 'react-native';
 
 import {FirebaseWrapper} from '../firebase/firebase'
 
@@ -48,40 +48,42 @@ export class SignIn extends Component {
             >
             {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit, setFieldValue }) => (
                 <Fragment>
-                    <Text style={styles.inputs}>
-                        email
-                    </Text>
-                    <TextInput
-                        style={styles.inputs}
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={() => setFieldTouched('email')}
-                        placeholder="chosen1@wiznet.com"
-                        autoFocus
-                    />
-                    {touched.email && errors.email &&
-                        <Text style={styles.errors}>{errors.email}</Text>
-                    }
-                    <Text style={styles.inputs}>
-                        password
-                    </Text>
-                    <TextInput
-                        style={styles.inputs}
-                        value={values.password}
-                        onChangeText={handleChange('password')}
-                        placeholder="expelliarmus"
-                        onBlur={() => setFieldTouched('password')}
-                        secureTextEntry={true}
-                    />
-                    {touched.password && errors.password &&
-                        <Text style={styles.errors}>{errors.password}</Text>
-                    }
-                    <Button
-                        style={styles.inputs}
-                        title="sign in"
-                        disabled={!isValid}
-                        onPress={() => this.logInUser(values)}
-                    />
+                    <View style={styles.container}>
+                        <Text style={styles.inputs}>
+                            email
+                        </Text>
+                        <TextInput
+                            style={styles.inputs}
+                            value={values.email}
+                            onChangeText={handleChange('email')}
+                            onBlur={() => setFieldTouched('email')}
+                            placeholder="chosen1@wiznet.com"
+                            autoFocus
+                        />
+                        {touched.email && errors.email &&
+                            <Text style={styles.errors}>{errors.email}</Text>
+                        }
+                        <Text style={styles.inputs}>
+                            password
+                        </Text>
+                        <TextInput
+                            style={styles.inputs}
+                            value={values.password}
+                            onChangeText={handleChange('password')}
+                            placeholder="expelliarmus"
+                            onBlur={() => setFieldTouched('password')}
+                            secureTextEntry={true}
+                        />
+                        {touched.password && errors.password &&
+                            <Text style={styles.errors}>{errors.password}</Text>
+                        }
+                        <Button
+                            style={styles.inputs}
+                            title="sign in"
+                            disabled={!isValid}
+                            onPress={() => this.logInUser(values)}
+                        />
+                    </View>
                 </Fragment>
             )}
             </Formik>
@@ -92,12 +94,22 @@ export class SignIn extends Component {
 
 styles = StyleSheet.create({
     inputs: {
-        fontSize: 10,
+        fontSize: 50,
         color: 'black',
-        fontFamily: 'Courier'
+        fontFamily: 'Courier',
+        borderColor: 'black',
+        borderWidth: 1,
+        height: 50
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+        height: 50,
+        marginLeft: 20
     },
     errors: {
-        fontSize: 10,
+        fontSize: 50,
         color: 'red',
         fontFamily: 'Courier'
     }

@@ -10,9 +10,6 @@ import {
 } from 'react-native';
 
 
-import {Search} from '../components/Search'
-
-
 export default function HomeScreen(props){
   const {navigate} = props.navigation;
   return (
@@ -31,9 +28,11 @@ export default function HomeScreen(props){
           onPress={() => navigate('SignUp')}
         />
       </View>
-      <Text style={styles.title}>binge.</Text>
-      <Image style={styles.image} source={require('./../assets/images/color-tv.jpeg')} />
-      <Text style ={styles.description}>crowdsourcing for television addicts</Text>
+      <View style={styles.homeContainer}>
+        <Text style={styles.title}>binge.</Text>
+        <Image style={styles.image} source={require('./../assets/images/color-tv.jpeg')} />
+        <Text style ={styles.description}>crowdsourcing for television addicts</Text>
+      </View>
     </View>
   );
 }
@@ -47,14 +46,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     marginTop: 30,
-    justifyContent: 'space-between'
+    justifyContent: 'flex-start'
+  },
+  homeContainer: {
+    marginTop: 0,
+    backgroundColor: '#FFFFFF',
   },
   title: {
     fontFamily: 'Courier',
     textAlign: 'center',
     fontSize: 50,
     color: '#000000',
-    marginTop: 60
+    marginTop: 10
   },
   description: {
     fontFamily: 'Courier',
@@ -72,7 +75,8 @@ const styles = StyleSheet.create({
   linkContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    marginTop: 30,
+    marginTop: 0,
+    flexDirection: 'row',
     justifyContent: 'flex-end'
   },
   tabBarInfoContainer: {

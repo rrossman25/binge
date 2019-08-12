@@ -1,26 +1,25 @@
 import React, {Component} from 'react'
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Text } from 'react-native-elements';
 
 import {FirebaseWrapper} from '../firebase/firebase'
 
 export class Search extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             search: '',
         };
     }
 
-    async search(search){
+    async search(search, platforms){
         try {
             await FirebaseWrapper.GetInstance().SetupCollectionListener('posts', function(container){
-                let platform = container.filter(doc => {
+                container.filter(doc => {
                     if (doc.title === search){
-                        return doc.platform;
+                        platforms = [...platforms, doc];
                     }
-                });
-                console.log(platform[0].platform)
-            });
+                })
+            })
 
         } catch (error) {console.log('something went wrong searching', error)}
     }
@@ -31,12 +30,13 @@ export class Search extends Component {
 
     render() {
         const { search } = this.state;
+        let { platforms } = this.props;
         return (
             <SearchBar
                 placeholder="Type Here..."
                 onChangeText={this.updateSearch}
                 value={search}
-                onEndEditing={() => this.search(search)}
+                onEndEditing={() => this.search(search, platforms)}
             />
     );
   }

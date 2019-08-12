@@ -19,10 +19,10 @@ export class SignIn extends Component {
                   }
                 });
                 if (user.length !== 0){
-                    console.log(user[0])
+                    Alert.alert('logged in', 'click go home to return to the home screen');
                 }
                 else {
-                    console.log('nope')
+                    Alert.alert('user does not exist', 'please try again');
                 }
             })
         } catch (error) {console.log('something went wrong signing in', error)}

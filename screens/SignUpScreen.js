@@ -10,35 +10,23 @@ import {
 } from 'react-native';
 
 
-import {Search} from '../components/Search'
+import {SignUp} from '../components/SignUp'
 
 
-export default function HomeScreen(props){
+export function SignUpScreen(props){
   const {navigate} = props.navigation;
   return (
     <View style={styles.container}>
-      <View style={styles.linkContainer}>
+        <SignUp />
         <Button
-          title="search"
-          onPress={() => navigate('Search')}
+            title="go home"
+            onPress={() => navigate('Main')}
         />
-        <Button
-          title="sign in"
-          onPress={() => navigate('SignIn')}
-        />
-        <Button
-          title="sign up"
-          onPress={() => navigate('SignUp')}
-        />
-      </View>
-      <Text style={styles.title}>binge.</Text>
-      <Image style={styles.image} source={require('./../assets/images/color-tv.jpeg')} />
-      <Text style ={styles.description}>crowdsourcing for television addicts</Text>
     </View>
   );
 }
 
-HomeScreen.navigationOptions = {
+SignUpScreen.navigationOptions = {
   header: null,
 };
 
@@ -68,12 +56,6 @@ const styles = StyleSheet.create({
     width: 300,
     alignSelf: 'center',
     marginBottom: 50
-  },
-  linkContainer: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    marginTop: 30,
-    justifyContent: 'flex-end'
   },
   tabBarInfoContainer: {
     position: 'absolute',

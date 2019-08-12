@@ -10,35 +10,23 @@ import {
 } from 'react-native';
 
 
-import {Search} from '../components/Search'
+import {SignIn} from '../components/SignIn'
 
 
-export default function HomeScreen(props){
-  const {navigate} = props.navigation;
-  return (
-    <View style={styles.container}>
-      <View style={styles.linkContainer}>
-        <Button
-          title="search"
-          onPress={() => navigate('Search')}
-        />
-        <Button
-          title="sign in"
-          onPress={() => navigate('SignIn')}
-        />
-        <Button
-          title="sign up"
-          onPress={() => navigate('SignUp')}
-        />
-      </View>
-      <Text style={styles.title}>binge.</Text>
-      <Image style={styles.image} source={require('./../assets/images/color-tv.jpeg')} />
-      <Text style ={styles.description}>crowdsourcing for television addicts</Text>
-    </View>
-  );
+export function SignInScreen(props){
+    const {navigate} = props.navigation;
+    return (
+        <View style={styles.container}>
+            <SignIn />
+            <Button
+                title="go home"
+                onPress={() => navigate('Main')}
+            />
+        </View>
+    );
 }
 
-HomeScreen.navigationOptions = {
+SignInScreen.navigationOptions = {
   header: null,
 };
 
@@ -68,12 +56,6 @@ const styles = StyleSheet.create({
     width: 300,
     alignSelf: 'center',
     marginBottom: 50
-  },
-  linkContainer: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    marginTop: 30,
-    justifyContent: 'flex-end'
   },
   tabBarInfoContainer: {
     position: 'absolute',

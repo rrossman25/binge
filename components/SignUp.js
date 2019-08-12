@@ -11,8 +11,10 @@ import {FirebaseWrapper} from '../firebase/firebase'
 export class SignUp extends Component {
 
     async createUser(values){
+
         try {
-            await FirebaseWrapper.GetInstance().CreateNewDocument('users', { email: values.email, password: values.password})
+            await FirebaseWrapper.GetInstance().CreateNewDocument('users', { email: values.email, password: values.password});
+            Alert.alert('congrats you are now a member', 'click go home to return to the home screen')
         } catch (error) {console.log('something went wrong signing up', error)}
     }
 
@@ -21,7 +23,6 @@ export class SignUp extends Component {
         return (
             <Formik
                 initialValues={{ email: '', password: '', agree: false }}
-                onSubmit={values => Alert.alert(JSON.stringify(values))}
                 validationSchema={yup.object().shape({
                 email: yup
                     .string()
